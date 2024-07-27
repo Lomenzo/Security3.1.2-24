@@ -39,4 +39,9 @@ public class UserDaoImp implements UserDao{
         User userForDelete = entityManager.find(User.class, user.getID());
         entityManager.remove(userForDelete);
     }
+
+    @Override
+    public User findByName(String userName){
+        return entityManager.find(User.class, userName);
+    }
 }

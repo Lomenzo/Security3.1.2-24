@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>UserChange</title>
+</head>
+<body>
+<h1>Change the User</h1>
+<form action="#" th:action="@{/useredit/{id}(id=${IDforChange})}" th:object="${user}" method="post">
+    <p>Name: <input type="text" th:field="*{name}" /></p>
+    <p>Age: <input type="text" th:field="*{age}" /></p>
+    <p>Pass: <input type="text" th:field="*{password}" /></p>
+    <p><input type="submit" value="Change" /></p>
+</form>
+<br>
+<a th:href="@{/}">Return</a>
+</body>
+</html>

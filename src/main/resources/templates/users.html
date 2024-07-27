@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>usrs</title>
+</head>
+<body>
+<h1>Add new User</h1>
+<form action="#" th:action="@{/useradd}" th:object="${user}" method="post">
+    <p>Name: <input type="text" th:field="*{name}" /></p>
+    <p>Age: <input type="text" th:field="*{age}" /></p>
+    <p>Pass: <input type="text" th:field="*{password}" /></p>
+    <p><input type="submit" value="Create" /></p>
+</form>
+<br>
+<table>
+    <thead>
+    <tr>
+        <th>name</th>
+        <th>age</th>
+        <th>family</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="usr : ${users}">
+        <td th:text="${usr.name}"></td>
+        <td th:text="${usr.age}"></td>
+        <td th:text="${usr.password}"></td>
+        <td><a th:href="@{/delete/{id}(id=${usr.ID})}">Delete</a></td>
+        <td><a th:href="@{/userchange/{id}(id=${usr.ID})}">Change</a></td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

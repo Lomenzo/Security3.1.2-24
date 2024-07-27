@@ -2,6 +2,7 @@ package ru.kata.spring.boot_security.demo.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -9,9 +10,10 @@ import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+//@Data
+//@NoArgsConstructor
+//@AllArgsConstructor
+//@Slf4j
 @Entity
 @Table(name = "webUsers")
 public class User implements UserDetails {
@@ -29,9 +31,16 @@ public class User implements UserDetails {
     @Column(name = "age")
     int age;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_roleID")
+//BiDirectional, Role = lead
+    @OneToMany(mappedBy = "user")
     private List<Role> roleList;
+
+//    @OneToMany(cascade = CascadeType.ALL)
+//    @JoinColumn(name = "role_roleID")
+//    private List<Role> roleList;
+                                            //    @OneToOne(cascade = CascadeType.ALL)
+                                            //    @JoinColumn(name = "car_id")
+                                            //    private Car car;
 
     public List<Role> getRoleList() {
         return roleList;
@@ -41,8 +50,60 @@ public class User implements UserDetails {
         this.roleList = roleList;
     }
 
+    public User() {
+    }
 
+    public User(String name, String password, int age) {
+        this.name = name;
+        this.password = password;
+        this.age = age;
+    }
 
+    public User(Long ID, String name, String password, int age) {
+        this.ID = ID;
+        this.name = name;
+        this.password = password;
+        this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", roleList=" + roleList +
+                '}';
+    }
+
+    public Long getID() {
+        return ID;
+    }
+
+    public void setID(Long ID) {
+        this.ID = ID;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

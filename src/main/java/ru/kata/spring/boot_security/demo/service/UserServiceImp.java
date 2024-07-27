@@ -44,4 +44,10 @@ public class UserServiceImp implements UserService {
     public void delete(User user) {
         userDao.delete(user);
     }
+
+    @Transactional
+    @Override
+    public User findByName(String userName){
+        return userDao.findByName(userName);
+    }
 }
