@@ -1,10 +1,13 @@
 package ru.kata.spring.boot_security.demo.dao;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import ru.kata.spring.boot_security.demo.model.User;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.sql.PreparedStatement;
 import java.util.List;
 import java.util.Optional;
 
@@ -40,8 +43,13 @@ public class UserDaoImp implements UserDao{
         entityManager.remove(userForDelete);
     }
 
+
     @Override
     public User findByName(String userName){
-        return entityManager.find(User.class, userName);
+        Optional<User> optional = entityManager.createQuery("SELECT user FROM User user WHERE user.name= ?1")
+                .setParameter(1, userName)
+                .getResultList().stream().findFirst();
+        return optional.orElse(null);
+//        return entityManager.find(User.class, userName);
     }
 }

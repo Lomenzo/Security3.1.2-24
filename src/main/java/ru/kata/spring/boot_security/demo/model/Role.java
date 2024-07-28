@@ -60,8 +60,7 @@ public class Role implements GrantedAuthority {
     public String toString() {
         return "Role{" +
                 "roleID=" + roleID +
-                ", roleName='" + roleName + '\'' +
-                ", users=" + users +
+                ", roleName='" + roleName +
                 '}';
     }
 
@@ -78,19 +77,8 @@ public class Role implements GrantedAuthority {
         return Objects.hash(roleID, roleName);
     }
 
-    @ManyToOne(optional = false)
-    private User users;
-
-    public User getUsers() {
-        return users;
-    }
-
-    public void setUsers(User users) {
-        this.users = users;
-    }
-
     @Override
     public String getAuthority() {
-        return null;
+        return getRoleName();
     }
 }

@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 
 //@Data
 //@NoArgsConstructor
@@ -32,8 +33,9 @@ public class User implements UserDetails {
     int age;
 
 //BiDirectional, Role = lead
-    @OneToMany(mappedBy = "user")
-    private List<Role> roleList;
+    @OneToMany
+    @JoinColumn(name = "role_roleID")
+    private Set<Role> roleList;
 
 //    @OneToMany(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "role_roleID")
@@ -42,11 +44,11 @@ public class User implements UserDetails {
                                             //    @JoinColumn(name = "car_id")
                                             //    private Car car;
 
-    public List<Role> getRoleList() {
+    public Set<Role> getRoleList() {
         return roleList;
     }
 
-    public void setRoleList(List<Role> roleList) {
+    public void setRoleList(Set<Role> roleList) {
         this.roleList = roleList;
     }
 
