@@ -1,15 +1,9 @@
-package ru.kata.spring.boot_security.demo.model;
+package securitydemo.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Objects;
 
 //@Data
 //@NoArgsConstructor
@@ -21,13 +15,13 @@ public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long roleID;
+    private Long roleID;
 
     @Column(name = "rolename")
-    String roleName;
+    private String roleName;
 
-    @ManyToMany (mappedBy = "roleList"/*, fetch = FetchType.LAZY*/)
-    List<User> userList;
+    @ManyToMany (mappedBy = "roleList", fetch = FetchType.EAGER)
+    private List<User> userList;
 
     public Role() {
     }
@@ -63,11 +57,7 @@ public class Role implements GrantedAuthority {
 
     @Override
     public String toString() {
-        return "Role{" +
-                "roleID=" + roleID +
-                ", roleName='" + roleName + '\'' +
-                ", userList=" + userList +
-                '}';
+        return "ROLE_" + roleName;
     }
 
     @Override

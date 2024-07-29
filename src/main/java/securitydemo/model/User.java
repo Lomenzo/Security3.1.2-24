@@ -1,14 +1,9 @@
-package ru.kata.spring.boot_security.demo.model;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
+package securitydemo.model;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 
 //@Data
@@ -21,24 +16,24 @@ public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long ID;
+    private Long ID;
 
     @Column(name = "name")
-    String name;
+    private String name;
 
     @Column(name = "password")
-    String password;
+    private String password;
 
     @Column(name = "age")
-    int age;
+    private int age;
 
-    @ManyToMany//(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "user_roles",
             joinColumns = @JoinColumn(name = "user_ID"),
             inverseJoinColumns = @JoinColumn(name = "role_roleID")
     )
-    Set<Role> roleList;
+    private Set<Role> roleList;
 
     public Long getID() {
         return ID;

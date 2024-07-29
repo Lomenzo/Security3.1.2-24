@@ -1,19 +1,18 @@
-package ru.kata.spring.boot_security.demo.service;
+package securitydemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import ru.kata.spring.boot_security.demo.dao.UserDao;
-//import ru.kata.spring.boot_security.demo.model.User;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+//import securitydemo.model.User;
+import securitydemo.model.Role;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
@@ -41,7 +40,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 //                .password(myUser.getPassword())
 //                .roles(myUser.getAuthorities())
 //                .build();
-//        return userDetails;
+//        return user;
 
 
         // версия дефолтного inMemory
@@ -54,16 +53,29 @@ public class CustomUserDetailsService implements UserDetailsService {
                         .password("usertest")
                         .roles("USER", "ADMIN")
                         .build();
-        ru.kata.spring.boot_security.demo.model.User myUser = userService.findByName(username);
 
+//        userService.add((ru.kata.spring.boot_security.demo.model.User) user);
+
+//        Set<Role> testroles = new HashSet<>();
+//        List<securitydemo.model.User> testusers = new ArrayList<>();
+//        securitydemo.model.User usertest = new securitydemo.model.User("usertest","usertest",13,testroles);
+//        testusers.add(usertest);
+//        testroles.add(new Role("ROLE_USER", testusers));
+//        usertest.setRoleList(testroles);
+//
+//
+//
+        securitydemo.model.User myUser = userService.findByName("asd");
+//
 //        if (myUser == null) {
 //            throw new UsernameNotFoundException("Unknown user: " + username);
 //        }
-
+//
+//
         System.out.println(user);
         System.out.println(username);
-//        System.out.println(myUser.getAuthorities());
-//        System.out.println(myUser.getRoleList().toString());
+        System.out.println(myUser.getAuthorities());
+        System.out.println(myUser.getRoleList().toString());
 
 //        List<GrantedAuthority> authorities = myUser.getRoleList().stream()
 //                .map(roleList -> new SimpleGrantedAuthority(roleList.getRoleName()))
@@ -71,5 +83,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 
         return user;
+
+
     }
 }
