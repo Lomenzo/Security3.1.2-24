@@ -52,7 +52,7 @@ public class CustomUserDetailsService implements UserDetailsService {
                 User.withDefaultPasswordEncoder()
                         .username("usertest")
                         .password("usertest")
-                        .roles("USER")
+                        .roles("USER", "ADMIN")
                         .build();
         ru.kata.spring.boot_security.demo.model.User myUser = userService.findByName(username);
 

@@ -16,7 +16,7 @@ import java.util.Set;
 //@AllArgsConstructor
 //@Slf4j
 @Entity
-@Table(name = "webUsers")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -32,52 +32,13 @@ public class User implements UserDetails {
     @Column(name = "age")
     int age;
 
-//BiDirectional, Role = lead
-    @OneToMany
-    @JoinColumn(name = "role_roleID")
-    private Set<Role> roleList;
-
-//    @OneToMany(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "role_roleID")
-//    private List<Role> roleList;
-                                            //    @OneToOne(cascade = CascadeType.ALL)
-                                            //    @JoinColumn(name = "car_id")
-                                            //    private Car car;
-
-    public Set<Role> getRoleList() {
-        return roleList;
-    }
-
-    public void setRoleList(Set<Role> roleList) {
-        this.roleList = roleList;
-    }
-
-    public User() {
-    }
-
-    public User(String name, String password, int age) {
-        this.name = name;
-        this.password = password;
-        this.age = age;
-    }
-
-    public User(Long ID, String name, String password, int age) {
-        this.ID = ID;
-        this.name = name;
-        this.password = password;
-        this.age = age;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "ID=" + ID +
-                ", name='" + name + '\'' +
-                ", password='" + password + '\'' +
-                ", age=" + age +
-                ", roleList=" + roleList +
-                '}';
-    }
+    @ManyToMany//(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_ID"),
+            inverseJoinColumns = @JoinColumn(name = "role_roleID")
+    )
+    Set<Role> roleList;
 
     public Long getID() {
         return ID;
@@ -105,6 +66,49 @@ public class User implements UserDetails {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Set<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(Set<Role> roleList) {
+        this.roleList = roleList;
+    }
+
+    public void addRole(Role role) {
+        roleList.add(role);
+    }
+
+    public void removeRole(Role role) {
+        roleList.remove(role);
+    }
+
+    public User() {
+    }
+
+    public User(String name, String password, int age) {
+        this.name = name;
+        this.password = password;
+        this.age = age;
+    }
+
+    public User(String name, String password, int age, Set<Role> roleList) {
+        this.name = name;
+        this.password = password;
+        this.age = age;
+        this.roleList = roleList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", password='" + password + '\'' +
+                ", age=" + age +
+                ", roleList=" + roleList +
+                '}';
     }
 
     @Override
