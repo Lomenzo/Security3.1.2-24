@@ -55,10 +55,11 @@ public class Role implements GrantedAuthority {
         this.userList = userList;
     }
 
-    @Override
-    public String toString() {
-        return "ROLE_" + roleName;
-    }
+//    @Override
+//    public String toString() {
+//        return "ROLE_" +
+//                roleName;
+//    }
 
     @Override
     public String getAuthority() {

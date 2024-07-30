@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Change the User</h1>
-<form action="#" th:action="@{/useredit/{id}(id=${IDforChange})}" th:object="${user}" method="post">
+<form action="#" th:action="@{/admin/useredit/{id}(id=${IDforChange})}" th:object="${user}" method="post">
     <p>Name: <input type="text" th:field="*{name}" /></p>
     <p>Age: <input type="text" th:field="*{age}" /></p>
     <p>Pass: <input type="text" th:field="*{password}" /></p>

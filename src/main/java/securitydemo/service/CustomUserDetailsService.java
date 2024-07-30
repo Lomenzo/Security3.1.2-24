@@ -1,6 +1,7 @@
 package securitydemo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -22,6 +23,35 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        securitydemo.model.User myUser = userService.findByName(username);
+        if (myUser == null) {
+            throw new UsernameNotFoundException("Unknown user: " + username);
+        }
+        // версия дефолтного inMemory
+//    @Bean
+//    @Override
+//    public UserDetailsService userDetailsService() {
+//        UserDetails user =
+//                User.withDefaultPasswordEncoder()
+//                        .username(myUser.getUsername())
+//                        .password(myUser.getPassword())
+////                        .roles("USER", "ADMIN")
+////                        .roles(myUser.getAuthorities())
+//                        .roles(myUser.getRoleList().toString())
+//                        .build();
+//
+//
+//
+//        System.out.println(user);
+//        System.out.println(username);
+//        System.out.println(myUser.getAuthorities());
+//        System.out.println(myUser.getRoleList().toString());
+
+        return myUser;
+
+
+
+
         // версия вторая, которая вроде работает но дает ошибку получения ИД стринга вместо ожидаемого лонга
 //        User myUser = userService.findByName(username);
 //        if (myUser == null) {
@@ -43,16 +73,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 //        return user;
 
 
-        // версия дефолтного inMemory
-//    @Bean
-//    @Override
-//    public UserDetailsService userDetailsService() {
-        UserDetails user =
-                User.withDefaultPasswordEncoder()
-                        .username("usertest")
-                        .password("usertest")
-                        .roles("USER", "ADMIN")
-                        .build();
+
 
 //        userService.add((ru.kata.spring.boot_security.demo.model.User) user);
 
@@ -65,24 +86,18 @@ public class CustomUserDetailsService implements UserDetailsService {
 //
 //
 //
-        securitydemo.model.User myUser = userService.findByName("asd");
+
 //
 //        if (myUser == null) {
 //            throw new UsernameNotFoundException("Unknown user: " + username);
 //        }
-//
-//
-        System.out.println(user);
-        System.out.println(username);
-        System.out.println(myUser.getAuthorities());
-        System.out.println(myUser.getRoleList().toString());
 
 //        List<GrantedAuthority> authorities = myUser.getRoleList().stream()
 //                .map(roleList -> new SimpleGrantedAuthority(roleList.getRoleName()))
 //                .collect(Collectors.toList());
 
 
-        return user;
+
 
 
     }

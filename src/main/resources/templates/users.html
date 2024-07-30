@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Add new User</h1>
-<form action="#" th:action="@{/useradd}" th:object="${user}" method="post">
+<form action="#" th:action="@{/admin/useradd}" th:object="${user}" method="post">
     <p>Name: <input type="text" th:field="*{name}" /></p>
     <p>Age: <input type="text" th:field="*{age}" /></p>
     <p>Pass: <input type="text" th:field="*{password}" /></p>
@@ -26,8 +26,8 @@
         <td th:text="${usr.name}"></td>
         <td th:text="${usr.age}"></td>
         <td th:text="${usr.password}"></td>
-        <td><a th:href="@{/delete/{id}(id=${usr.ID})}">Delete</a></td>
-        <td><a th:href="@{/userchange/{id}(id=${usr.ID})}">Change</a></td>
+        <td><a th:href="@{/admin/delete/{id}(id=${usr.ID})}">Delete</a></td>
+        <td><a th:href="@{/admin/userchange/{id}(id=${usr.ID})}">Change</a></td>
     </tr>
     </tbody>
 </table>

@@ -17,7 +17,7 @@ public class PrevController {
     @Autowired
     UserService userService;
 
-    @GetMapping(value = "/")
+    @GetMapping(value = "/admin/")
     public String printAllUsersWithForm(@ModelAttribute("user") User user, ModelMap modelMap) {
         modelMap.addAttribute("user", user);
         List<User> usersFromDB = new ArrayList<>();
@@ -26,7 +26,7 @@ public class PrevController {
         return "users";
     }
 
-    @RequestMapping(value = "/useradd", method = RequestMethod.POST)
+    @RequestMapping(value = "/admin/useradd", method = RequestMethod.POST)
     public String printAllUsersWithNewAdded(@ModelAttribute("user") User user, ModelMap modelMap) {
         modelMap.addAttribute("user", user);		//геттеры для формы
         String name = user.getName();
@@ -40,7 +40,7 @@ public class PrevController {
         return "users";
     }
 
-    @GetMapping(value = "/delete/{id}")
+    @GetMapping(value = "/admin/delete/{id}")
     public String printAllUsersAfterDelete(@ModelAttribute("user") User user, ModelMap modelMap, @PathVariable Long id){
         modelMap.addAttribute("user", user);		//геттеры для формы
         Optional<User> optionalUser = userService.read(id);
@@ -54,14 +54,14 @@ public class PrevController {
         return "users";
     }
 
-    @GetMapping(value = "/userchange/{id}")
+    @GetMapping(value = "/admin/userchange/{id}")
     public String printFormForUserChange(@ModelAttribute("user") User user, ModelMap modelMap, @PathVariable Long id) {
         modelMap.addAttribute("user", user);		//геттеры для формы
         modelMap.addAttribute("IDforChange", id);
         return "userChangePage";
     }
 
-    @PostMapping(value = "/useredit/{id}")
+    @PostMapping(value = "/admin/useredit/{id}")
     public String printAllUsersWithChanged(@ModelAttribute("user") User user, ModelMap modelMap, @PathVariable Long id) {
         modelMap.addAttribute("user", user);		//геттеры для формы
         Optional<User> opt = userService.read(id);
