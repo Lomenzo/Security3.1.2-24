@@ -7,19 +7,29 @@
 <h1>User, welcome spring boot security page!</h1>
 <div sec:authorize="isAuthenticated()">
     This content is only shown to authenticated users.
-    <span sec:authentication="name">Bob</span>
+    <div sec:authorize="isAuthenticated()">
+        Authenticated as <span sec:authentication="name"></span><br>
+        </a></div>
+
+
+    <span sec:authentication="name"></span>
+    <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+
 
 </div>
 <div sec:authorize="hasRole('ROLE_ADMIN')">
-    This content is only shown to administrators.
+<!--    This content is only shown to administrators.-->
+    You login as admin
 </div>
 <div sec:authorize="hasRole('ROLE_USER')">
-    This content is only shown to users.
+<!--    This content is only shown to users.-->
+    You login as a user
 </div>
 
 
-<span sec:authentication="name">Bob</span>
-<span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
 
+
+
+<li><a href="#" th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
 </body>
 </html>

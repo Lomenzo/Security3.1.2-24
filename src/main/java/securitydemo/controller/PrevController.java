@@ -1,12 +1,17 @@
 package securitydemo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import securitydemo.model.User;
 import securitydemo.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -16,6 +21,11 @@ public class PrevController {
 
     @Autowired
     UserService userService;
+
+    @PostMapping(value= "/logout")
+    public void logoutMethod(){
+        SecurityContextHolder.getContext().setAuthentication(null);
+    }
 
     @GetMapping(value = "/admin/")
     public String printAllUsersWithForm(@ModelAttribute("user") User user, ModelMap modelMap) {
